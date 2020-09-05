@@ -1,0 +1,22 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Dimeiza&#39;s Blog</title>
+    <link>https://Dimeiza.github.io/tags/</link>
+    <description>Recent content in Tags on Dimeiza&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 16 Jun 2019 08:16:37 +0900</lastBuildDate>
+    
+        <atom:link href="https://Dimeiza.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PC</title>
+      <link>https://Dimeiza.github.io/tags/pc/</link>
+      <pubDate>Sun, 16 Jun 2019 08:16:37 +0900</pubDate>
+      
+      <guid>https://Dimeiza.github.io/tags/pc/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

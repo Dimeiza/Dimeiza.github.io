@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dimeiza&#39;s Blog  | Making a handmade fanless NAS with NanoPi M4 and SATA Hat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://Dimeiza.github.io/css/blog.css" />
+    </head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://Dimeiza.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://Dimeiza.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Making a handmade fanless NAS with NanoPi M4 and SATA Hat
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <h1 id="introduction">Introduction</h1>
+<p>When I rearranged my room, I suddenly wanted to replace my old NAS.</p>
+<p>I have used this.</p>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=dimeiza09-20&marketplace=amazon&region=US&placement=B00BNI4A90&asins=B00BNI4A90&linkId=c0980946d5532121f440f455e8c43b6e&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<p>It was so useful NAS, But It was a bit large.</p>
+<p>So I had tried to replace NAS with NUC, but it wasn’t stable because my NUC had a problem in its power unit.</p>
+<p>Then I heard cases that build NAS with Linux single board, so I thought to try it with hobby.</p>
+<h1 id="board-selection">Board selection</h1>
+<p>I could choice within some board.</p>
+<table>
+<thead>
+<tr>
+<th>Linux SBC</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raspberry Pi 3 B+</td>
+<td><a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/</a></td>
+</tr>
+<tr>
+<td>RockPro64</td>
+<td><a href="https://www.pine64.org/rockpro64/">https://www.pine64.org/rockpro64/</a></td>
+</tr>
+<tr>
+<td>NanoPi M4</td>
+<td><a href="https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=234">https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=234</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="raspberry-pi">Raspberry Pi</h2>
+<p>Raspberry pi is handy board to build lightweight NAS, and there are many cases.
+But it has constraints by USB 2.0.</p>
+<p>max speed of gigabit ethernet is restricted max speed of USB 2.0.
+If I want to connect a storage, I can connect this through USB port, but it is also 2.0.</p>
+<h2 id="rockpro64">RockPro64</h2>
+<p>I found Rock64 during search another board. There are also several cases with it.</p>
+<p>And I found more stronger board “Rock64Pro”.</p>
+<p>This board have a powerful SoC “ Rockchip RK3399”, have high performance much more than BCM2835, and have PCIe interface.</p>
+<p>It isn’t bad choice.</p>
+<h2 id="nano-pi-m4">Nano Pi M4</h2>
+<p>And when I searched continuously cases with RK3399 board, I finally found “Nanopi M4”.</p>
+<p>Consequently, I choosed this board, Following are decisive factors.</p>
+<h3 id="1-same-size-as-a-raspberry-pi">1. Same size as a Raspberry Pi.</h3>
+<p>RockPro64 has a size twice Raspberry Pi, But Nanopi M4 is same size as a Raspberry Pi.</p>
+<p>(But you can’t use Raspberry Pi case to NanoPi M4 because additional PCIe PINs)</p>
+<h3 id="2-i-can-add-sata-interfaces-to-this-board">2. I can add SATA interfaces to this board.</h3>
+<p>I thought USB3.0 has sufficient speed to connect a HDD. however I found a interesting HAT.</p>
+<p>4x SATA HAT for NanoPi M4</p>
+<p><a href="https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=254">https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=254</a></p>
+<p>This HAT can add SATA interfaces to NANOPi M4, So I can connect SATA HDD directly.</p>
+<p>When I found this board, I felt this is interesting.</p>
+<h1 id="purchase">Purchase</h1>
+<p>I bought this in Friendly Elec official site.</p>
+<p>And I added these options.</p>
+<table>
+<thead>
+<tr>
+<th>Choiced option</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDR3 4GB RAM</td>
+<td>I didn’t want to have a trouble caused by insufficient memory.</td>
+</tr>
+<tr>
+<td>HeatSink</td>
+<td>This big heatsink is mandatory to heat control of RK3399.</td>
+</tr>
+<tr>
+<td>32GB eMMC Module for NanoPi</td>
+<td>Nano Pi M4 has eMMC slot, so if you have this, You can boot this board without SD card.</td>
+</tr>
+<tr>
+<td>4x SATA HAT for NanoPi M4</td>
+<td>You also can purchase it as a option of the board.</td>
+</tr>
+<tr>
+<td>5V 4A Power Adapter</td>
+<td>If you use a SATA hat, it isn’t mandatory, but I thought possibility of using this board standalone.</td>
+</tr>
+<tr>
+<td>High-Power Type-C to USB-A Male 2.0 Cable - 30cm</td>
+<td>as above.</td>
+</tr>
+</tbody>
+</table>
+<p>And you have to consider a power source of this board.</p>
+<h2 id="power-adapter">Power adapter</h2>
+<p>Nano Pi M4 usually use power source of 5V/3A(through USB type C), but if you use a SATA HAT, you have to prepare an AC adaptor.</p>
+<p>This adaptor have to supply more than 12V/2A, and if you want to use four 3.5 inch HDD, must supply 12V/5A.</p>
+<p>You can use PC ATX power source alternatively, but I wanted small power source because my objective is building a small SATA NAS.</p>
+<p>You can check these constraints in official site.</p>
+<p><a href="https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=254">https://www.friendlyarm.com/index.php?route=product/product&amp;product_id=254</a></p>
+<p>I have already had an AC adaptor(12V/2A), so I didn’t purchase an adaptor. But if you haven’t an adaptor, You can purchase in official site it.</p>
+<h2 id="shipping">Shipping</h2>
+<p>I choosed a shipping option as EMS, and this goods delivered by DHL.</p>
+<p>I purchased it at 6/2 and I received at 6/7.</p>
+<h2 id="received-item">Received item</h2>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_091617.jpg" alt=""></p>
+<h3 id="nano-pi-m4-1">Nano Pi M4</h3>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_092643.jpg" alt=""></p>
+<h3 id="emmc">eMMC</h3>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_091734.jpg" alt=""></p>
+<h3 id="heatsink">Heatsink</h3>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_091742.jpg" alt=""></p>
+<h3 id="usb-adaptor">USB Adaptor</h3>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_092652.jpg" alt=""></p>
+<h3 id="sata-hat">SATA Hat</h3>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190608_092747.jpg" alt=""></p>
+<h3 id="assembling">Assembling</h3>
+<p>I seem assembling is easy relatively.</p>
+<p>It is necessary to set a pad over RK3399 chip before attaching heatsink.</p>
+<p>Attaching eMMC is required before setting a SATA hat.</p>
+<h1 id="os">OS</h1>
+<p>At 6/15, I found seven OS supported Nanopi M4, and only three OS can use SATA hat officially.</p>
+<p>But I had found I can use another OS to use a SATA HAT.</p>
+<p><a href="https://forum.armbian.com/topic/10011-nanopi-m4-sata-hat/">https://forum.armbian.com/topic/10011-nanopi-m4-sata-hat/</a></p>
+<p>Armbian also can handle SATA HAT. so I chose Armbian because I wanted to use general distribution.</p>
+<p><a href="https://www.armbian.com/">https://www.armbian.com/</a></p>
+<h2 id="installing-armbian">Installing Armbian</h2>
+<h3 id="writing-to-sd">Writing to SD</h3>
+<p><a href="https://www.armbian.com/nanopi-m4/">https://www.armbian.com/nanopi-m4/</a></p>
+<p>I confirmed I could use a SATA HAT in both Stretch and Bionic.</p>
+<p>I downloaded a Stretch distribution and I wrote this to SD card by Balena Etcher.</p>
+<p><a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a></p>
+<h3 id="boot-from-sd-card">Boot from SD card</h3>
+<p>In the end, Nano Pi M4 is booted by eMMC, so SD card is used as a install media.</p>
+<p>First, Insert SD card and power on, boot from SD card.</p>
+<p>Second, Armbian shows a prompt for root login so input username(root) and password(Armbian default:1234)</p>
+<p>Finally, Armbian shows a prompt of registration a normal user, so input user account information you use.</p>
+<p>If it is finished, You have already logined as root account.</p>
+<h3 id="installing-armbian-to-emmc">Installing Armbian to eMMC</h3>
+<p>If you logined, input this command for installing Armbian to eMMC.</p>
+<pre><code>$ sudo nand-sata-install
+</code></pre><p>Then Armbian will display a menu to select the destination media, so select “Boot from eMMC - System on eMMC”</p>
+<p>Soon, It appear warning message(in red text), select “Yes”. And wait to finish installation.</p>
+<p>if it finished, it shows a dialog for power off, so choice power off, remove SD card and reboot.</p>
+<p>If it works well, Nano Pi M4 boot by eMMC.</p>
+<h1 id="installing-file-shering-server-and-dlna-server">Installing file shering server and DLNA server</h1>
+<p>If you get here, You can install server service as same as another linux distribution.</p>
+<p>After network configuration, do it.</p>
+<h2 id="a-trap-of-openmediavalut">A trap of OpenMediaValut</h2>
+<p>There was a option to install OpenMediaVault if I use this board as a simple NAS.</p>
+<p><a href="https://www.openmediavault.org/">https://www.openmediavault.org/</a></p>
+<p>Unfortunately, it was unstable when I used it in this board.</p>
+<p>I think a OpenMediaValut has a trouble because when I used a samba alternatively, it was so stable.</p>
+<p>It may not occur this trouble now, I have used samba only.</p>
+<p>(2019/9/18 update)</p>
+<p>I have received a report that OMV have worked in this environment.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/dimeiza?ref_src=twsrc%5Etfw">@dimeiza</a> just read your blog post on NanoPi M4 - I have a similar setup but OMV is working for me.  Thanks for sharing!</p>&mdash; ImpatientMaker (@ImpatientMaker) <a href="https://twitter.com/ImpatientMaker/status/1174095642391535617?ref_src=twsrc%5Etfw">September 17, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>If you will make this NAS from now, you can try to use OMV.</p>
+<h2 id="installing-samba">Installing Samba</h2>
+<p>I don’t introduce this because there are many example in the internet.</p>
+<h2 id="installing-dlna-server">Installing DLNA server</h2>
+<p>Usually, these case it is used minidlna(Readymedia) because performance of single board is poor relatively.</p>
+<p><a href="https://wiki.archlinux.jp/index.php/ReadyMedia">https://wiki.archlinux.jp/index.php/ReadyMedia</a></p>
+<p>But I didn’t satisfy functions of minidlna, I wanted to use a function of transcoding.</p>
+<p>Therefore I used a Serviio. It seems this product is implemented by Java, and it seems heavy more than minidlna, But Nano Pi M4 has over twice performance as Raspberry Pi 3, so I decided to use it.</p>
+<p><a href="https://serviio.org/">https://serviio.org/</a></p>
+<p>I have installed serviio, and I seem all function works well.</p>
+<h2 id="assembling-a-raid-procedure-only-for-me">Assembling a RAID (procedure only for me)</h2>
+<p>I operated above operation with an external 2.5 inch HDD.</p>
+<p>But 2.5 inch HDD has only a poor performance.
+I want to use 3.5 inch HDD, so I decided to use HDDs used old NAS.</p>
+<p>I had used these HDD as RAID1 HDD. I had knew a file system of readyNAS raid is btrfs, so I used mdadm to assemble RAID1 over the Nano PI M4.</p>
+<h3 id="installing-mdadm-and-assembling-raid1">installing mdadm and assembling RAID1</h3>
+<p>First, I connected old HDD to Nanopi M4 and installed mdadm to use software RAID.</p>
+<pre><code>$ sudo apt install mdadm
+</code></pre><p>Second, I tried to assemble RAID 1.</p>
+<p>A HDD of ReadyNAS RAID has three partition, and actual data is written in partition 3.</p>
+<pre><code>sudo mdadm —assemble /dev/md127 /dev/sda3 /dev/sdb3
+</code></pre><p>Finally, run RAID1.</p>
+<pre><code>sudo mdadm -R /dev/md127
+</code></pre><h3 id="mount-and-fstab">mount and fstab</h3>
+<p>In this state, I executed this command to mount a RAID1 volume.</p>
+<pre><code>sudo mount /dev/md127 /nas
+</code></pre><p>And changed owner,</p>
+<pre><code>sudo chown [username]:[groupname] /nas
+</code></pre><p>In this state, I succeeded to share files under /nas folder by samba and serviio.</p>
+<p>Finally, I edited /etc/fstab to mount during boot.</p>
+<pre><code>/dev/md127                                      /nas            btrfs   defaults        0       0
+</code></pre><p>I configured it to mount as btrfs file system. And I have confirmed auto mount is successful.</p>
+<h1 id="result">Result</h1>
+<p>Cables are still mess a little.</p>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190615_205131.jpg" alt=""></p>
+<p><img src="/makingNASWithNanoPiM4/IMG_20190615_205507.jpg" alt=""></p>
+<p>This NAS system can operate fanless and smaller than old NAS therefore I can flexibility choice a place to set it.</p>
+<p>I will consider a protection against physical impact of HDD.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>I have got a lot of valuable knowledge during this try. And My curiocity gave me a practical NAS device.</p>
+<p>If you have a some Linux knowledge, and you want to know devices beyond a Raspberry Pi, This try probably is useful for you.</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://Dimeiza.github.io/tags/pc">pc</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://Dimeiza.github.io/2019/makingnaswithnanopim4/">Making a handmade fanless NAS with NanoPi M4 and SATA Hat</a></h1>
+            <time class="has-text-grey-light is-size-7">16 June 2019</time>
+        
+            <h1><a href="https://Dimeiza.github.io/2019/chopinwithgpu/">Mini-ITX PC with GPU powerd by In Win Chopin(no customized case)</a></h1>
+            <time class="has-text-grey-light is-size-7">15 June 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://Dimeiza.github.io/2019/chopinwithgpu/">Mini-ITX PC with GPU powerd by In Win Chopin(no customized case)</a></h1>
+            <time class="has-text-grey-light is-size-7">15 June 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://Dimeiza.github.io/archives/2019">2019</a> (2)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Dimeiza&#39;s Blog 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://Dimeiza.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

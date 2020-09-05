@@ -1,0 +1,17 @@
+theme = "jeffprod"
+title = "Dimeiza's Blog"
+
+baseurl = "https://Dimeiza.github.io/"
+publishDir = "docs"
+
+[permalinks]
+    post = "/:year/:filename"
+
+[taxonomies]
+    tag = "tags"
+    archive = "archives"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
